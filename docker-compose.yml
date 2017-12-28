@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+ web:
+  image: php:7.0-apache
+  volumes:
+   - ./web:/var/www/html/
+  ports:
+   - "8005:80"
+  links:
+   - "db:mysql"
+
+ db:
+  build: .
+  container_name: mysql
+  ports:
+   - "3306:3306"
+  volumes:
+   - data:/var/lib/mysql
+  restart: always
+  environment:
+   MYSQL_ROOT_PASSWORD: root
+   MYSQL_DATABASE: johan
+
+volumes:
+ data:
